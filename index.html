@@ -1,0 +1,1133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>赛马娘外部开源项目图鉴 · 33 个社区仓库中文说明</title>
+<style>
+:root{
+  --bg:#f7f9fc; --card:#ffffff; --card2:#f0f4f9; --line:#dde4ee; --line2:#c9d4e3;
+  --txt:#1e293b; --sub:#5a6b80; --acc:#0b6bcb; --acc-bg:#eaf2fd;
+  --auto:#15803d; --auto-bg:#e9f7ef; --loc:#9a3412; --loc-bg:#fdf1e7;
+  --data:#5b21b6; --data-bg:#f1ecfe; --tool:#0e7490; --tool-bg:#e6f6fa;
+  --sim:#b45309; --sim-bg:#fdf3e3;
+  --star:#a16207;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  line-height:1.75; font-size:15px; -webkit-font-smoothing:antialiased;
+}
+a{color:var(--acc);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* ── 顶栏 ── */
+.nav{
+  position:sticky; top:0; z-index:20;
+  background:rgba(255,255,255,.95); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+  padding:0 24px; height:52px;
+  display:flex; align-items:center; gap:20px;
+  max-width:1240px; margin:0 auto;
+}
+.nav .brand{font-weight:800;color:var(--acc);font-size:1.02em;white-space:nowrap}
+.nav a{font-size:.9em;color:var(--sub);white-space:nowrap}
+.nav a:hover{color:var(--acc);text-decoration:none}
+.nav .spacer{flex:1}
+.nav .count{font-size:.85em;color:var(--sub);white-space:nowrap}
+
+/* ── 容器 ── */
+.wrap{max-width:1240px;margin:0 auto;padding:28px 24px 90px}
+
+header.top{padding:8px 0 22px;border-bottom:2px solid var(--line);margin-bottom:26px}
+header.top h1{font-size:2em;line-height:1.3;letter-spacing:-.5px}
+header.top .sub{color:var(--sub);margin-top:8px;font-size:.98em}
+.stat-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.stat{
+  background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:8px 16px; font-size:.88em; color:var(--sub);
+  display:flex; align-items:baseline; gap:8px;
+}
+.stat b{color:var(--acc);font-size:1.25em;font-weight:800}
+
+/* ── 说明条 ── */
+.callout{
+  background:var(--acc-bg); border:1px solid #cfe0f8; border-left:4px solid var(--acc);
+  border-radius:0 8px 8px 0; padding:12px 16px; margin:0 0 26px; font-size:.92em;
+}
+.callout b{color:#084a94}
+
+/* ── 分类标题 ── */
+h2.cat{
+  font-size:1.22em; margin:38px 0 4px; display:flex; align-items:center; gap:10px;
+  padding-bottom:8px; border-bottom:2px solid var(--line2);
+}
+h2.cat .dot{width:10px;height:10px;border-radius:3px;flex:none}
+h2.cat .n{font-size:.68em;color:var(--sub);font-weight:600;margin-left:auto;letter-spacing:.5px}
+.cat.auto h2.cat,.cat.auto h2.cat .dot{color:var(--auto)} .cat.auto h2.cat .dot{background:var(--auto)}
+.cat.loc  h2.cat,.cat.loc  h2.cat .dot{color:var(--loc)}  .cat.loc  h2.cat .dot{background:var(--loc)}
+.cat.data h2.cat,.cat.data h2.cat .dot{color:var(--data)} .cat.data h2.cat .dot{background:var(--data)}
+.cat.tool h2.cat,.cat.tool h2.cat .dot{color:var(--tool)} .cat.tool h2.cat .dot{background:var(--tool)}
+.cat.sim  h2.cat,.cat.sim  h2.cat .dot{color:var(--sim)}  .cat.sim  h2.cat .dot{background:var(--sim)}
+.cat p.catdesc{color:var(--sub);font-size:.9em;margin:8px 0 0}
+
+/* ── 卡片网格 ── */
+.grid{
+  display:grid; grid-template-columns:repeat(auto-fill,minmax(360px,1fr));
+  gap:16px; margin-top:16px;
+}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:10px;
+  padding:0; display:flex; flex-direction:column; overflow:hidden;
+  transition:box-shadow .14s, border-color .14s, transform .14s;
+}
+.card:hover{box-shadow:0 6px 20px rgba(15,40,80,.10);border-color:var(--line2);transform:translateY(-2px)}
+.card-top{padding:13px 16px 11px;border-bottom:1px solid var(--line);background:var(--card2)}
+.card-title{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.card-title .owner{font-size:.82em;color:var(--sub);font-weight:600}
+.card-title .name{font-weight:800;font-size:1.02em;letter-spacing:-.2px}
+.card-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;align-items:center}
+.badge{
+  font-size:.72em; padding:1px 7px; border-radius:4px; font-weight:700;
+  border:1px solid var(--line2); color:var(--sub); background:#fff; white-space:nowrap;
+}
+.badge.lang{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:600}
+.badge.cat-auto{color:var(--auto);border-color:#bfe3cd;background:var(--auto-bg)}
+.badge.cat-loc{color:var(--loc);border-color:#f0d3bb;background:var(--loc-bg)}
+.badge.cat-data{color:var(--data);border-color:#d9cdf7;background:var(--data-bg)}
+.badge.cat-tool{color:var(--tool);border-color:#bfe6ef;background:var(--tool-bg)}
+.badge.cat-sim{color:var(--sim);border-color:#f0dcb6;background:var(--sim-bg)}
+.badge.stars{color:var(--star);border-color:#e8d9ae;background:#fdf8e8}
+.badge.archived{color:#b91c1c;border-color:#f3c4c4;background:#fdeeee}
+.badge.deprecated{color:#92400e;border-color:#e8cfa0;background:#fbf3e4}
+
+.card-body{padding:13px 16px 14px;flex:1;display:flex;flex-direction:column;gap:11px}
+.blurb{font-size:.9em;color:#334155}
+
+/* 功能清单：固定标签列，保证所有卡片内标签与内容严格对齐 */
+.fn{list-style:none;display:flex;flex-direction:column;gap:5px}
+.fn li{display:grid;grid-template-columns:76px 1fr;gap:10px;font-size:.855em;align-items:start}
+.fn .k{
+  color:var(--sub);font-weight:700;text-align:right;
+  border-right:2px solid var(--line2); padding-right:10px; line-height:1.55;
+  white-space:nowrap;
+}
+.fn .v{color:#2b3a4d;line-height:1.55}
+.fn .v code{
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;
+  background:var(--card2);padding:0 4px;border-radius:3px;border:1px solid var(--line);
+}
+
+.card-foot{
+  padding:10px 16px;border-top:1px solid var(--line);background:#fbfcfe;
+  display:flex;align-items:center;gap:10px;
+}
+.card-foot .go{
+  font-size:.86em;font-weight:700;padding:5px 14px;border-radius:6px;
+  background:var(--acc);color:#fff;display:inline-block;
+}
+.card-foot .go:hover{background:#0958ab;text-decoration:none}
+.card-foot .repo{font-size:.76em;color:var(--sub);font-family:ui-monospace,Menlo,monospace;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-foot .repo a{color:var(--sub)}
+.card-foot .repo a:hover{color:var(--acc)}
+
+/* ── 表格 ── */
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:.88em;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--card2);font-weight:700;white-space:nowrap}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tbody tr:nth-child(even){background:#fafcff}
+
+.note{
+  background:#fffdf5;border:1px solid #f0e2b8;border-left:4px solid #d9a406;
+  border-radius:0 8px 8px 0;padding:12px 16px;margin:24px 0;font-size:.9em;
+}
+.note b{color:#8a6100}
+footer{
+  margin-top:60px;padding-top:18px;border-top:1px solid var(--line);
+  color:var(--sub);font-size:.85em;
+}
+footer code{background:var(--card2);padding:1px 5px;border-radius:3px;border:1px solid var(--line)}
+.tblwrap{overflow-x:auto}
+@media(max-width:600px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:20px 14px 60px}
+  .nav{gap:12px;font-size:.85em}
+  .fn li{grid-template-columns:64px 1fr;gap:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <span class="brand">🏇 赛马娘外部项目图鉴</span>
+  <a href="#cat-auto">自动育成</a>
+  <a href="#cat-loc">本地化汉化</a>
+  <a href="#cat-data">数据提取</a>
+  <a href="#cat-tool">辅助工具</a>
+  <a href="#cat-sim">模拟计算</a>
+  <a href="#table">总表</a>
+  <span class="spacer"></span>
+  <span class="count">共 33 个仓库 · 数据核对于 2026-09</span>
+</div>
+
+<div class="wrap">
+
+<header class="top">
+  <h1>🏇 赛马娘外部开源项目图鉴</h1>
+  <p class="sub">社区第三方仓库的中文说明册——<b>不属于本项目组</b>的独立开源成果。每个仓库一个卡片，功能逐条拆开讲清，点按钮直达 GitHub 源码。</p>
+  <div class="stat-row">
+    <div class="stat">收录仓库 <b>33</b></div>
+    <div class="stat">覆盖方向 <b>5</b></div>
+    <div class="stat">最高星标 <b>641</b></div>
+    <div class="stat">主要语言 <b>Python / C++</b></div>
+    <div class="stat">星标合计 <b>约 3400+</b></div>
+  </div>
+</header>
+
+<div class="callout">
+  <b>怎么读这本图鉴：</b>① 先看分类标题下的说明，确定这个方向解决什么问题；② 点卡片底部的「打开 GitHub ↗」直接跳到源码仓库；③ 卡片里「主要功能」一行一条，都是从仓库 README 核实过的功能点，不是二手转述。<b>全部说明为中文撰写</b>，原始仓库多为日文/英文描述。
+</div>
+
+<div class="note">
+  <b>⚠ 使用前必读：</b>赛马娘是 Cygames 的商业作品，自动化脚本、内存读取、资源替换类工具<b>均违反用户协议，存在账号封禁风险</b>，使用者自行承担全部责任。本图鉴仅做技术资料整理与介绍，不提供任何绕过检测的方法，也不鼓励违规使用。
+</div>
+
+
+<!-- ══════════════ 1. 自动育成 ══════════════ -->
+<h2 class="cat" id="cat-auto"><span class="dot"></span>🤖 自动育成与挂机<span class="n">10 个仓库</span></h2>
+<p class="catdesc">这一类解决的是「重复育成太累」：让程序代替玩家点训练、选事件、排赛程、管体力。技术路线分三种——<b>屏幕识别</b>（截图+模板匹配+OCR，最主流）、<b>无头协议</b>（直接和游戏服务器说 msgpack，最先进）、<b>游戏内原生自动训练</b>（调用官方功能并循环）。</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">NateScarlet/</span><span class="name">auto-derby</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 467</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">自动育成</span>
+        <span class="badge archived">已归档</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">社区流传最广的自动化养马脚本，2021 年建仓、星标最高的自动育成项目。技术路线是<b>前台窗口 + 截图模板匹配 + OCR</b>，通过双击 launcher.cmd 启动，内置简易 GUI 启动器。⚠ 作者已宣布归档（去玩别的游戏了），但衍生分支仍在维护。</p>
+      <ul class="fn">
+        <li><span class="k">客户端支持</span><span class="v">DMM 版前台运行；<b>实验性</b>安卓 ADB 后台连接（按 1080×1920 分辨率开发）</span></li>
+        <li><span class="k">日常玩法</span><span class="v">团队赛（团队赛有胜利确定奖励时自动吃帕菲）、日常赛、PvP 冠军赛、传奇赛（自动领奖）、活动抽奖转盘</span></li>
+        <li><span class="k">限时商店</span><span class="v">三个插件可选：<code>buy_everything</code> 全买 / <code>buy_first_3</code> 买前 3 件 / <code>ignore</code> 忽略</span></li>
+        <li><span class="k">剧本适配</span><span class="v">URA Finals、青叶杯（辉れ、チームの絆）、Make a new Track  climaxes</span></li>
+        <li><span class="k">训练决策</span><span class="v">按当前属性 / 训练效果 / 训练等级 / 羁绊获取量择优；暑期集训保留体力</span></li>
+        <li><span class="k">比赛处理</span><span class="v">自动参赛并<b>预估结果</b>，属性不足以夺冠时暂停请求人工确认；按属性与适性自动选跑法</span></li>
+        <li><span class="k">事件选项</span><span class="v">遇到新选项请求人工处理，之后相同事件复用同一选择</span></li>
+        <li><span class="k">友人卡</span><span class="v">支持友人卡，可基于事件效果主动外出</span></li>
+        <li><span class="k">扩展机制</span><span class="v">支持 Python 插件热扩展；PR 走 dev 分支有 CI 自动测</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/NateScarlet/auto-derby" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">NateScarlet/auto-derby</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">shiokaze/</span><span class="name">UmamusumeAutoTrainer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 327</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">自动育成</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">中文圈最常用的自动育成工具（<b>仅支持国服/简体中文版</b>，明确不支持国际服与英文版）。走<b>模拟器 ADB 截图识别</b>路线，自带 WebUI 面板（<code>127.0.0.1:8071</code>）在浏览器里配任务。星标第二，Issue 数量也最多（70 个），生态活跃。</p>
+      <ul class="fn">
+        <li><span class="k">核心能力</span><span class="v">支持全部马娘自动跑完育成剧本，含多剧本分支处理</span></li>
+        <li><span class="k">目标定制</span><span class="v">可自定义<b>目标属性、跑法、额外赛程、要学的技能</b>，用于刷三星因子与刷继承相性</span></li>
+        <li><span class="k">模拟器适配</span><span class="v">支持 MuMu（<code>127.0.0.1:16384</code>）、雷电/蓝叠（<code>emulator-5554</code>），蓝叠 Hyper-V 可自动读 <code>bluestacks.conf</code> 找端口</span></li>
+        <li><span class="k">参数配置</span><span class="v">改 <code>config.yaml</code>：adb 设备名、延迟、CPU 分配量</span></li>
+        <li><span class="k">运行要求</span><span class="v">模拟器分辨率 720×1280、DPI 180（竖屏）；游戏画面必须「标准版」不能用简易版</span></li>
+        <li><span class="k">安装方式</span><span class="v">Windows 下跑 <code>install.ps1</code> 装依赖（Python 3.10.9），再跑 <code>run.ps1</code></span></li>
+        <li><span class="k">开发计划</span><span class="v">TODO：定时执行任务、育成中 AI 逻辑优化、事件选项可配置、自动完成每日金币/支援点/JJC</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/shiokaze/UmamusumeAutoTrainer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">shiokaze/UmamusumeAutoTrainer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">samsulpanjul/</span><span class="name">umamusume-auto-train</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 225</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">自动育成</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">2025 年新项目，<b>Fork 数（120）超过星标数（225）的一半</b>，是本类里被二次开发最多的。同样受 shiokaze 项目启发，但配置体验更好：<code>python main.py</code> 启动后按 <b>F1 启停</b>，浏览器开 <code>127.0.0.1:8000</code> 改配置。默认策略是「先把羁绊刷满，再冲彩虹（高稀有支援卡）」。</p>
+      <ul class="fn">
+        <li><span class="k">育成主逻辑</span><span class="v">自动训练马娘；<b>一直比赛直到粉丝数达标</b>，且只挑符合适性的比赛</span></li>
+        <li><span class="k">状态管理</span><span class="v">检查心情、处理减益状态、按需休息</span></li>
+        <li><span class="k">赛程筛选</span><span class="v">可从赛程表中<b>指定要打的 G1 赛</b>，也能指定跑法位置</span></li>
+        <li><span class="k">属性目标</span><span class="v">设定属性目标值，达标的那项训练直接跳过，避免无效练级</span></li>
+        <li><span class="k">技能与卡</span><span class="v">自动购买技能（作者标注即将完善）；按支援卡<b>类型</b>（速度/力量等）而非具体卡去追提示</span></li>
+        <li><span class="k">事件</span><span class="v">可自定义想选的选项；自动玩扭蛋机</span></li>
+        <li><span class="k">附属工具</span><span class="v"><code>auto_misc.py --cm</code> 自动清冠军赛（最后一关花 30 宝石）、<code>--tt hard/medium/easy</code> 自动清团队赛</span></li>
+        <li><span class="k">多开支持</span><span class="v">单机可挂多个 bot，配置模板共享但热键与 WebUI 端口分开</span></li>
+        <li><span class="k">环境要求</span><span class="v">Python 3.10–3.13 + VS C++ 生成工具；Steam 版需 1920×1080 全屏主显示器；模拟器建议 800×1080 / DPI 160+</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/samsulpanjul/umamusume-auto-train" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">samsulpanjul/umamusume-auto-train</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">steve1316/</span><span class="name">uma-android-automation</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 135</span>
+        <span class="badge lang">Kotlin</span>
+        <span class="badge cat-auto">自动育成</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb"><b>纯原生安卓 App</b>（不是 PC 脚本），目标是「完整自动跑完一次育成」。2021 年建仓，只有 1 个未关 Issue，是本类里维护状况最健康的项目之一。安卓端自动化的首选参考。</p>
+      <ul class="fn">
+        <li><span class="k">技术栈</span><span class="v">Kotlin 编写，直接在安卓手机上运行，无需 PC</span></li>
+        <li><span class="k">核心目标</span><span class="v">completely automating a run——把一整轮育成从开始到比赛全自动跑完</span></li>
+        <li><span class="k">项目状态</span><span class="v">自 2021 年持续更新，最近更新 2026-09，未关 Issue 仅 1 个</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/steve1316/uma-android-automation" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">steve1316/uma-android-automation</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Magody/</span><span class="name">Umaplay</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 106</span>
+        <span class="badge lang">Jupyter Notebook</span>
+        <span class="badge cat-auto">自动育成</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">用 <b>scrcpy.exe 把安卓画面镜像到 PC 再识别</b>的自动育成方案，作者自称「undetectable cheat（不可检测的外挂）」——即输入直接走 scrcpy 通道而不是模拟点击。同时支持 Steam 版。代码以 Notebook 形式呈现，便于逐段改逻辑。</p>
+      <ul class="fn">
+        <li><span class="k">双平台</span><span class="v">Steam 版直接跑；安卓版通过 <code>scrcpy.exe</code> 投屏到 PC 后再自动化</span></li>
+        <li><span class="k">实现形式</span><span class="v">Jupyter Notebook，逻辑分段可读可改，适合研究算法而非直接部署</span></li>
+        <li><span class="k">注意</span><span class="v">Issue 较多（24 个），使用前建议先读 Issue 区确认当前版本可用性</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Magody/Umaplay" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Magody/Umaplay</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Kimjio（作者）/ noccu/</span><span class="name">umamusu-translate</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 108</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">翻译工具</span>
+        <span class="badge deprecated">已弃用</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">汉化工具界的元老项目（又称 Legacy UmaTL），2021 年发布时是社区主力方案。<b>现已明确弃用</b>，作者把后续版本导向自建站 <code>hachimi.noccu.art</code>。研究早期汉化思路（文本表改写 + 补丁注入）仍有参考价值。</p>
+      <ul class="fn">
+        <li><span class="k">历史地位</span><span class="v">2021–2022 年社区主要汉化方案奠定者，29 个 Fork</span></li>
+        <li><span class="k">当前状态</span><span class="v">README 首行即标注 Deprecated，后续请用 <code>hachimi.noccu.art</code></span></li>
+        <li><span class="k">参考价值</span><span class="v">工具集 + 补丁双轨制（toolset &amp; patch）的早期实现思路</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/noccu/umamusu-translate" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">noccu/umamusu-translate</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">SweepTosher/</span><span class="name">umamusume-sweepy</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 71</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">无头机器人</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">「<b>headless uma bot</b>」——不盯着屏幕跑。作者是 <code>/vg/</code> 频道成员，README 语气相当有个性：吐槽 Cygames 的滚动加密（rolling cipher）没移植过来，跑了 5 分钟 MANT 育成。依赖需先装 Node.js 再装 requirements.txt。</p>
+      <ul class="fn">
+        <li><span class="k">运行依赖</span><span class="v">先 <code>winget install OpenJS.NodeJS</code> 并 <code>npm i</code>，再装 requirements.txt</span></li>
+        <li><span class="k">性能</span><span class="v">README 主推 5 分钟内跑完一轮 MANT 育成</span></li>
+        <li><span class="k">决策引擎</span><span class="v">使用「半移植版」sweepy 决策引擎；作者计划迁移到 MCTS（自嘲受硬件限制）</span></li>
+        <li><span class="k">功能边界</span><span class="v">作者<b>主动移除了循环/无限育成功能</b>，理由是避免 Twitter 争议与激怒 Cygames</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/SweepTosher/umamusume-sweepy" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">SweepTosher/umamusume-sweepy</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Remezzo/</span><span class="name">Umamusume-Icarus</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 50</span>
+        <span class="badge lang">闭源（专有许可）</span>
+        <span class="badge cat-auto">无头 API</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">本类里<b>技术路线最先进</b>的一个：<b>不走屏幕识别，直接用 msgpack 协议和游戏服务器对话</b>，并读取本地 <code>master.mdb</code> 拿卡池/技能/赛事/事件数据。全程无 OCR、无图像识别、无模拟点击，所以不受分辨率、语言版本、窗口焦点影响。⚠ 仓库为专有许可（源码未公开），README 极详尽。</p>
+      <ul class="fn">
+        <li><span class="k">部署</span><span class="v">双击 <code>Icarus.exe</code> 即可，Python/Node 全内置无需安装；面板开在 <code>127.0.0.1:1717</code>，仅绑本机</span></li>
+        <li><span class="k">剧本覆盖</span><span class="v">URA Finals、Unity Cup、Make a New Track、Grand Live 各自独立策略</span></li>
+        <li><span class="k">训练决策</span><span class="v">属性上限与权重、心情/体力阈值、休息与暑期策略、支援卡与羁绊评分、提示价值、双圈处理</span></li>
+        <li><span class="k">赛程规划</span><span class="v">自定义赛程 + 适性筛选 + <b>粉丝目标保护</b>（发现目标要漏就在收尾回合补赛救回）</span></li>
+        <li><span class="k">技能购买</span><span class="v">优先级列表 + 黑名单，可即时买或攒到最后；会把列表买到耗尽，余额再按马娘距离/跑法适配技能</span></li>
+        <li><span class="k">角色轮换</span><span class="v">给每匹马配次数（如大树×5、 Vodka ×4），跑完自动换下一匹；中途重启可续跑</span></li>
+        <li><span class="k">继承</span><span class="v">继承相性评分、借种母（含每日借出次数上限）、被拒后自动回退自有备选</span></li>
+        <li><span class="k">养成马管理</span><span class="v">按评价/羁绊/收藏/本次会话筛选并批量删除，自动绕开游戏 50 个/请求上限；收藏、种马、限定角色自动保护</span></li>
+        <li><span class="k">其他</span><span class="v">Hyper Skip 协议级跳过演出、Live Advisor 实时解说决策理由、Discord Webhook 播报、Steam 自动登录含 2FA、7600+ 项回归测试</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Remezzo/Umamusume-Icarus" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Remezzo/Umamusume-Icarus</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Kisegami/</span><span class="name">umamusume-auto-train</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 45</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-auto">自动育成</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">定位明确的轻量级项目：<b>Auto Training and Race bot</b>——育成与比赛两件事都自动做。体量小、依赖少，适合先跑通最小闭环再考虑换更重的方案。</p>
+      <ul class="fn">
+        <li><span class="k">核心能力</span><span class="v">自动育成 + 自动参赛两件事打包</span></li>
+        <li><span class="k">定位</span><span class="v">轻量实现，适合入门学习或作为功能对照参考</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Kisegami/umamusume-auto-train" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Kisegami/umamusume-auto-train</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Remezzo/</span><span class="name">Umamusume-Sundial</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 4</span>
+        <span class="badge lang">闭源（专有许可）</span>
+        <span class="badge cat-tool">多账号面板</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">多账号集中管理工具：一个面板跑完你名下<b>所有</b>赛马娘账号——领奖励、做日常、以及独立的「Independent Training」循环（自动开育成、看进度、结算入库）。配好一次就不用再管。</p>
+      <ul class="fn">
+        <li><span class="k">多账号</span><span class="v">一个面板统一跑所有账号的奖励与日常</span></li>
+        <li><span class="k">育成循环</span><span class="v">自动启动育成、监看进度、把战果结算入库（banks careers）</span></li>
+        <li><span class="k">设计理念</span><span class="v">「Set each account up once, then leave it」——配置一次就放手，不用盯着</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Remezzo/Umamusume-Sundial" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Remezzo/Umamusume-Sundial</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════ 2. 本地化汉化 ══════════════ -->
+<h2 class="cat" id="cat-loc"><span class="dot"></span>🌐 本地化与汉化<span class="n">6 个仓库</span></h2>
+<p class="catdesc">解决「看不懂日文 / 想改成中文」：<b>文本表改写</b>（改 <code>master.mdb</code> 里的字符串表，最彻底）、<b>运行时代码注入</b>（C++ 插件 hook 文本读取，兼容性好）、<b>译文分离仓库</b>（插件本体 + 简中语言包两仓分工）。</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">MinamiChiwa/</span><span class="name">Trainers-Legend-G</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 641</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-loc">汉化插件</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb"><b>本图鉴星标最高的项目（641）</b>，赛马娘汉化的事实标准。2022 年建仓，43 个 Fork，2026-09 仍在更新。走 C++ 注入路线，把日文客户端改造成中文客户端。</p>
+      <ul class="fn">
+        <li><span class="k">定位</span><span class="v">赛马娘本地化插件「Trainers' Legend G」，社区使用面最广</span></li>
+        <li><span class="k">实现方式</span><span class="v">C++ 原生插件注入，运行时替换文本与界面资源</span></li>
+        <li><span class="k">维护状态</span><span class="v">持续更新中（最近 2026-09-22），未关 Issue 23 个</span></li>
+        <li><span class="k">配套仓库</span><span class="v">简中译文单独放在 <code>Trainers-Legend-G-TRANS</code>（见下卡）</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/MinamiChiwa/Trainers-Legend-G" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">MinamiChiwa/Trainers-Legend-G</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">MinamiChiwa/</span><span class="name">Trainers-Legend-G-TRANS</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 39</span>
+        <span class="badge lang">纯文本资源</span>
+        <span class="badge cat-loc">简中语言包</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">上一个插件的<b>简体中文译文仓库</b>——插件本体与语言包分仓管理的一套好范式：想换语言只换这个仓，插件本体不动。19 个 Fork 说明很多人直接拿它当中文包用。</p>
+      <ul class="fn">
+        <li><span class="k">职责</span><span class="v">只存放简体中文译文数据，插件逻辑在本体仓</span></li>
+        <li><span class="k">优势</span><span class="v">换语言不影响插件本体，便于多语言并行维护</span></li>
+        <li><span class="k">维护状态</span><span class="v">0 个未关 Issue，最近更新 2025-12</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/MinamiChiwa/Trainers-Legend-G-TRANS" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">MinamiChiwa/Trainers-Legend-G-TRANS</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">GEEKiDoS/</span><span class="name">umamusume-localify</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 242</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-loc">客户端本地化</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">专门针对 <b>DMM 客户端</b>的本地化工具，55 个 Fork 是本类里被二次开发最多的（大量下游汉化包基于它）。默认分支是 <code>develop</code>，说明开发重心在主干而非发布分支。</p>
+      <ul class="fn">
+        <li><span class="k">目标客户端</span><span class="v">DMM 版（PC 客户端）</span></li>
+        <li><span class="k">实现</span><span class="v">C++ 本地化层，可挂到游戏进程上替换文本</span></li>
+        <li><span class="k">生态位</span><span class="v">55 个 Fork——多数第三方汉化方案把它当底座二次开发</span></li>
+        <li><span class="k">维护</span><span class="v">主开发分支 <code>develop</code>，最近更新 2026-07</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/GEEKiDoS/umamusume-localify" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">GEEKiDoS/umamusume-localify</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Kimjio/</span><span class="name">umamusume-localify</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 108</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-loc">本地化+增强</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">自我定位是「<b>Localize &amp; Enhance</b>」——不只是翻译，还叠加了功能性增强，所以未关 Issue 达 18 个（用户提的多是增强需求）。最近更新 2026-09-26，是本类里最活跃的 Windows 端方案。</p>
+      <ul class="fn">
+        <li><span class="k">双重定位</span><span class="v">本地化 + 玩法增强（Enhance），功能面比纯汉化更宽</span></li>
+        <li><span class="k">目标客户端</span><span class="v">Windows 客户端</span></li>
+        <li><span class="k">维护</span><span class="v">最近更新 2026-09-26，本类最活跃；18 个未关 Issue 多为增强需求</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Kimjio/umamusume-localify" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Kimjio/umamusume-localify</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Kimjio/</span><span class="name">umamusume-localify-android</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 60</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-loc">安卓本地化</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">把上一个 Windows 方案<b>移植到安卓</b>的版本。移动端没有 PC 注入环境，难度更高，能做出来说明其框架设计足够解耦。</p>
+      <ul class="fn">
+        <li><span class="k">关系</span><span class="v">Windows 版 <code>umamusume-localify</code> 的 Android 移植</span></li>
+        <li><span class="k">意义</span><span class="v">移动端无注入环境，该项目验证了本地化层与宿主平台的解耦</span></li>
+        <li><span class="k">维护</span><span class="v">最近更新 2026-09-26，与 Windows 版同步</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Kimjio/umamusume-localify-android" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Kimjio/umamusume-localify-android</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">FabulousCupcake/</span><span class="name">umamusume-db-translate</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 50</span>
+        <span class="badge lang">Shell</span>
+        <span class="badge cat-loc">数据库汉化</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">路线和其他项目不同：<b>不改代码，直接改数据库</b>——「Translate Umamusume by patching master.mdb」。用 Shell 脚本批量改写 <code>master.mdb</code> 里的文本字段，33 个 Fork 说明这是被广泛复用的思路。</p>
+      <ul class="fn">
+        <li><span class="k">核心手法</span><span class="v">直接 patch <code>master.mdb</code> 的文本表，不依赖代码注入</span></li>
+        <li><span class="k">优势</span><span class="v">Shell 实现，跨平台、依赖少、可批量处理</span></li>
+        <li><span class="k">注意</span><span class="v">改数据库会随游戏更新失效，需要每次更新重新 patch</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/FabulousCupcake/umamusume-db-translate" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">FabulousCupcake/umamusume-db-translate</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════ 3. 数据提取 ══════════════ -->
+<h2 class="cat" id="cat-data"><span class="dot"></span>📦 数据提取与资源查看<span class="n">7 个仓库</span></h2>
+<p class="catdesc">这一类解决「想把游戏里的东西拿出来研究」：<b>资源浏览器</b>（看角色立绘/语音/音乐）、<b>文本提取</b>（语音对应台词、模型替换）、<b>数据库开放</b>（master.mdb 公开镜像与查询 API）。是所有分析类项目的上游数据来源。</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">MarshmallowAndroid/</span><span class="name">UmamusumeExplorer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 188</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-data">资源浏览器</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">C# 写的 GUI 资源查看器，UI 干净、功能明确。游戏本体用 Unity + <b>CRIWARE 加密</b>，本项目用 <code>vgmstream</code> 解 CRIWARE 音频、用 <code>AssetsTools.NET</code> 读 Unity 资源。2026-09 仍在更新。</p>
+      <ul class="fn">
+        <li><span class="k">文件浏览</span><span class="v">带搜索的文件浏览器，支持导出</span></li>
+        <li><span class="k">音频播放</span><span class="v">音频播放器 + 赛事音乐（比赛 BGM）模拟器，均可导出</span></li>
+        <li><span class="k">角色信息</span><span class="v">查每套服装（含稀有度）对应的五维属性，以及技能一览</span></li>
+        <li><span class="k">技术栈</span><span class="v"><code>sqlite-net</code> + <code>SQLite3MultipleCiphers</code> 读库；<code>vgmstream</code> 解 CRIWARE；<code>AssetsTools.NET</code> 读 Unity 资源</span></li>
+        <li><span class="k">前提</span><span class="v">需自备 DMM 或 Steam 版游戏本体；作者声明<b>不修改任何游戏数据</b>，纯只读</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/MarshmallowAndroid/UmamusumeExplorer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">MarshmallowAndroid/UmamusumeExplorer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">CNA-Bld/</span><span class="name">CarrotJuicer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 104</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-data">资源提取</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">项目名是个玩笑：「<b>Juice the carrots</b>」（榨胡萝卜汁）——就是资源提取工具。Windows 版 C++ 实现，26 个 Fork，是同类提取器里流传最广的。</p>
+      <ul class="fn">
+        <li><span class="k">用途</span><span class="v">从游戏安装目录提取资源文件</span></li>
+        <li><span class="k">实现</span><span class="v">C++，Windows 平台</span></li>
+        <li><span class="k">同系列</span><span class="v">安卓实现见同作者 <code>Riru-CarrotJuicer</code>（需 Root）</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/CNA-Bld/CarrotJuicer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">CNA-Bld/CarrotJuicer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">CNA-Bld/</span><span class="name">Riru-CarrotJuicer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 32</span>
+        <span class="badge lang">C++</span>
+        <span class="badge cat-data">安卓提取</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">CarrotJuicer 的<b>安卓实现</b>，基于 <b>Riru</b> 框架（Zygisk 注入框架的封装），因此需要 Root 环境。0 个未关 Issue，7 个 Fork。</p>
+      <ul class="fn">
+        <li><span class="k">实现</span><span class="v">C++，基于 Riru 框架在安卓上做资源提取</span></li>
+        <li><span class="k">前提</span><span class="v">需要 Root 与 Riru / Zygisk 环境</span></li>
+        <li><span class="k">配套</span><span class="v">Windows 版见同作者 <code>CarrotJuicer</code></span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/CNA-Bld/Riru-CarrotJuicer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">CNA-Bld/Riru-CarrotJuicer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">chinosk6/</span><span class="name">umamusume-voice-text-extractor</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 99</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-data">文本提取</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">专门做一件事：<b>把语音和它对应的台词配对提取出来</b>。做汉化或配音研究时的必备工具——知道「这句台词是哪个语音资源」，才能精准改文本表。</p>
+      <ul class="fn">
+        <li><span class="k">核心功能</span><span class="v">提取语音并建立「语音 ↔ 文本」对应关系</span></li>
+        <li><span class="k">用途</span><span class="v">汉化定位台词、语音考据、二次配音素材整理</span></li>
+        <li><span class="k">实现</span><span class="v">Python，易于二次改造</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/chinosk6/umamusume-voice-text-extractor" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">chinosk6/umamusume-voice-text-extractor</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">chinosk6/</span><span class="name">umamusume-model-replace</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 30</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-data">模型替换</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">模型替换工具——<b>把游戏里的 3D 模型换成别的</b>。与同作者的语音文本提取器配套，构成一套「资源改写」工具链。</p>
+      <ul class="fn">
+        <li><span class="k">功能</span><span class="v">替换游戏内使用的模型资源</span></li>
+        <li><span class="k">配套</span><span class="v">与同作者 <code>voice-text-extractor</code> 属同一套资源改写工具链</span></li>
+        <li><span class="k">实现</span><span class="v">Python</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/chinosk6/umamusume-model-replace" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">chinosk6/umamusume-model-replace</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">SimpleSandman/</span><span class="name">UmaMusumeMetaMasterMDB</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 15</span>
+        <span class="badge lang">数据文件</span>
+        <span class="badge cat-data">数据公开镜像</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb"><b>master.mdb 的公开存放点</b>。<code>master.mdb</code> 是赛马娘全部静态数据（角色、支援卡、技能、赛事、赛道、事件）的 SQLite 库——所有数据分析类项目的公共上游。社区把它公开托管，省去每人自己去游戏目录里翻。</p>
+      <ul class="fn">
+        <li><span class="k">内容</span><span class="v">游戏静态主数据库 <code>master.mdb</code> 的公开镜像</span></li>
+        <li><span class="k">价值</span><span class="v">所有数据类项目的公共上游，省去自行提取与更新</span></li>
+        <li><span class="k">配套</span><span class="v">同作者 <code>UmaMusumeAPI</code> 基于它提供查询接口（见下卡）</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/SimpleSandman/UmaMusumeMetaMasterMDB" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">SimpleSandman/UmaMusumeMetaMasterMDB</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">SimpleSandman/</span><span class="name">UmaMusumeAPI</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 36</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-data">查询 API</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">把 <code>master.mdb</code> 包成 <b>社区 HTTP API</b>，并在标准查询之外额外提供若干<b>分析型端点</b>。想做外部工具（计算器、攻略站、机器人）时，直接查它而不用自己连数据库。</p>
+      <ul class="fn">
+        <li><span class="k">数据源</span><span class="v">游戏 <code>master.mdb</code>（同作者的公开镜像仓提供）</span></li>
+        <li><span class="k">接口形态</span><span class="v">Community API，标准查询 + 额外分析端点（analysis endpoints）</span></li>
+        <li><span class="k">用途</span><span class="v">给外部计算器/攻略站/机器人做数据后端，避免各自实现数据库读取</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/SimpleSandman/UmaMusumeAPI" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">SimpleSandman/UmaMusumeAPI</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════ 4. 辅助工具 ══════════════ -->
+<h2 class="cat" id="cat-tool"><span class="dot"></span>🛠️ 辅助工具与启动器<span class="n">6 个仓库</span></h2>
+<p class="catdesc">不自动替你玩，只<b>帮你玩得更好</b>：启动器整合、事件选项推荐（OCR 识别屏幕给建议）、训练辅助、Mod 加载器、界面翻译浮层、资料库前端。</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">UmamusumeResponseAnalyzer/</span><span class="name">UmamusumeResponseAnalyzer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 197</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-tool">响应分析</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">以<b>组织账号</b>名义发布（不是个人号），星标 197 —— 本类最高。专门做「响应分析」：把游戏返回的数据/响应解出来看，用于理解机制与验证决策。29 个 Fork，2026-09 仍在更新。</p>
+      <ul class="fn">
+        <li><span class="k">定位</span><span class="v">分析游戏响应数据，用于机制研究与决策验证</span></li>
+        <li><span class="k">发布形式</span><span class="v">组织仓库（UmamusumeResponseAnalyzer 组织），可信度与协作性较好</span></li>
+        <li><span class="k">维护</span><span class="v">C# 实现，最近更新 2026-09-26，9 个未关 Issue</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/UmamusumeResponseAnalyzer/UmamusumeResponseAnalyzer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">UmamusumeResponseAnalyzer/UmamusumeResponseAnalyzer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">KevinVG207/</span><span class="name">UmaLauncher</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 39</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-tool">启动器</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">DMM 版的<b>伴侣启动器</b>——启动游戏顺带把一堆增强功能挂上。19 个未关 Issue 相对其 39 星标偏高，说明用户对功能完善度期待较高。</p>
+      <ul class="fn">
+        <li><span class="k">定位</span><span class="v">Companion software to Uma Musume (DMM Version)，enhances the gameplay experience</span></li>
+        <li><span class="k">形态</span><span class="v">Python 实现的启动器，把增强能力与游戏启动整合</span></li>
+        <li><span class="k">维护</span><span class="v">2026-03 更新过，19 个未关 Issue 待处理</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/KevinVG207/UmaLauncher" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">KevinVG207/UmaLauncher</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">steve1316/</span><span class="name">uma-android-training-helper</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 25</span>
+        <span class="badge lang">Kotlin</span>
+        <span class="badge cat-tool">训练辅助</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb"><b>纯辅助，不自动操作</b>——帮你判断「这回合该练什么」。作者自述对标 amate 的 UmaUmaCruise 与 GameTora 的 Training Event Helper，是同类工具的公认参照系。0 个未关 Issue。</p>
+      <ul class="fn">
+        <li><span class="k">核心功能</span><span class="v">辅助玩家<b>选择正确的训练选项</b>，给出推荐而非代替点击</span></li>
+        <li><span class="k">对标产品</span><span class="v">amate 的 UmaUmaCruise、GameTora 的 Training Event Helper</span></li>
+        <li><span class="k">形态</span><span class="v">Kotlin 安卓应用，与同作者的全自动版配套</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/steve1316/uma-android-training-helper" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">steve1316/uma-android-training-helper</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">akarindt/</span><span class="name">UmatoMusume</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 21</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-tool">OCR 选项助手</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">Windows 桌面应用，用 <b>OCR 实时识别事件选项</b>并给出建议——纯「看屏幕给提示」，不代点。作者 2025 年中才建仓，迭代很快（最近 2026-09-24）。</p>
+      <ul class="fn">
+        <li><span class="k">技术</span><span class="v">OCR 光学字符识别，实时读屏上的事件文本</span></li>
+        <li><span class="k">输出</span><span class="v">事件追踪器 + 选项建议助手（real-time event tracker and choice assistant）</span></li>
+        <li><span class="k">边界</span><span class="v">只给建议不代替操作，规避风险也降低维护成本</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/akarindt/UmatoMusume" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">akarindt/UmatoMusume</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Remezzo/</span><span class="name">Umamusume-Overseer</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 5</span>
+        <span class="badge lang">闭源（专有许可）</span>
+        <span class="badge cat-tool">陪伴浮层</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">定位很克制：<b>「It never plays for you; it makes every click count」</b>——只做翻译、跳过、赛前预测，<b>绝不代打</b>。单文件、零配置、100% 本地运行，支持 25+ 语言实时翻译。</p>
+      <ul class="fn">
+        <li><span class="k">功能</span><span class="v">实时翻译（25+ 语言）、一键跳过、事件选项/比赛结果/训练结果<b>点击前预测</b></span></li>
+        <li><span class="k">原则</span><span class="v">绝不代替玩家操作，只让每次点击更有依据</span></li>
+        <li><span class="k">部署</span><span class="v">单个文件、零设置、100% 本地，不联网</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Remezzo/Umamusume-Overseer" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Remezzo/Umamusume-Overseer</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">tumugu/</span><span class="name">UmaMusume_Mod_Loader</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 8</span>
+        <span class="badge lang">Python</span>
+        <span class="badge cat-tool">Mod 加载</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">日文原名「ウマ娘のModを簡単に読み込めるプログラム」——<b>让加载 Mod 这件事变简单</b>的一键式工具。做 Mod 改装的必需品。</p>
+      <ul class="fn">
+        <li><span class="k">用途</span><span class="v">简化 Mod 加载流程，降低改装门槛</span></li>
+        <li><span class="k">实现</span><span class="v">Python，2026-08 更新</span></li>
+        <li><span class="k">配套</span><span class="v">通常与资源替换类 Mod 配合使用</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/tumugu/UmaMusume_Mod_Loader" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">tumugu/UmaMusume_Mod_Loader</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════ 5. 模拟与计算 ══════════════ -->
+<h2 class="cat" id="cat-sim"><span class="dot"></span>🧮 模拟器与计算器<span class="n">4 个仓库</span></h2>
+<p class="catdesc">不碰游戏，只算账：<b>概率模拟</b>（支援卡特性优先级对训练概率的影响）、<b>相性计算</b>（育成相性/支援相性）、<b>数据库浏览器</b>（查任意数值）、<b>强度榜</b>、<b>同人资料库前端</b>。</p>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">SheffPlaysGames/</span><span class="name">UmaSpecPriority</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 0</span>
+        <span class="badge lang">HTML</span>
+        <span class="badge cat-sim">概率模拟器</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">极简的<b>训练概率模拟器</b>（barebones simulator）：调整「使用中的支援卡特性优先级」，看训练触发概率怎么变。纯 HTML 单页，零依赖，打开就能用——星标 0 但实用性明确，适合快速验证假设。</p>
+      <ul class="fn">
+        <li><span class="k">模拟对象</span><span class="v">支援卡<b>特性优先级（specialty priority）</b>变化带来的训练概率差异</span></li>
+        <li><span class="k">形态</span><span class="v">纯 HTML 单文件，无构建无依赖，浏览器直接打开</span></li>
+        <li><span class="k">适用</span><span class="v">验证「换掉卡的特性顺序会掉多少触发率」这类具体问题</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/SheffPlaysGames/UmaSpecPriority" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">SheffPlaysGames/UmaSpecPriority</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Kamijouko/</span><span class="name">UmaMusume_Calculator</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 9</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-sim">相性计算</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">赛马娘<b>相性计算器</b>（作者自述为「测试用」版本）。相性是育成里最影响效率的隐藏数值之一，这个工具把计算过程显式化。0 个未关 Issue。</p>
+      <ul class="fn">
+        <li><span class="k">功能</span><span class="v">计算赛马娘相性数值（相性即角色之间的隐性加成）</span></li>
+        <li><span class="k">状态</span><span class="v">作者标注为 test 版本；0 个未关 Issue，最近 2025-11 更新</span></li>
+        <li><span class="k">用途</span><span class="v">刷继承相性前先算清楚，避免盲目刷</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Kamijouko/UmaMusume_Calculator" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Kamijouko/UmaMusume_Calculator</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">starik222/</span><span class="name">UmaMusumeDBBrowser</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 7</span>
+        <span class="badge lang">C#</span>
+        <span class="badge cat-sim">数据库浏览</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">给 <code>master.mdb</code> 套一层图形界面来查——不想开命令行 sqlite3 时的顺手工具。星标虽小，但补齐了「数据浏览」这一环。</p>
+      <ul class="fn">
+        <li><span class="k">功能</span><span class="v">图形化浏览 <code>master.mdb</code> 各数据表</span></li>
+        <li><span class="k">定位</span><span class="v">命令行 <code>sqlite3</code> 的图形替代，零学习成本</span></li>
+        <li><span class="k">配套</span><span class="v">数据库文件可用 <code>SimpleSandman/UmaMusumeMetaMasterMDB</code> 的公开镜像</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/starik222/UmaMusumeDBBrowser" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">starik222/UmaMusumeDBBrowser</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">Euophrys/</span><span class="name">umamusume-tierlist</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 16</span>
+        <span class="badge lang">JavaScript</span>
+        <span class="badge cat-sim">强度榜</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">马娘<b>强度榜（tier list）</b>项目。特色是 <b>Fork 数（25）比星标（16）还多</b>——大量用户在 fork 自己的版本，说明它更像一个「可自定义的排名模板」：谁都能拉一份改成本社区的榜。</p>
+      <ul class="fn">
+        <li><span class="k">功能</span><span class="v">角色强度分级榜单（tier list）</span></li>
+        <li><span class="k">用法特色</span><span class="v">Fork 数 &gt; 星标数，社区习惯 fork 后改成自己认可的排名</span></li>
+        <li><span class="k">实现</span><span class="v">JavaScript 前端，2026-09 更新</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/Euophrys/umamusume-tierlist" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">Euophrys/umamusume-tierlist</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="card-title"><span class="owner">umalib/</span><span class="name">UmaLibDesktop</span></div>
+      <div class="card-meta">
+        <span class="badge stars">★ 36</span>
+        <span class="badge lang">Vue</span>
+        <span class="badge cat-sim">资料库前端</span>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="blurb">赛马娘<b>同人文章资料库</b>的桌面端前端，Vue 写的。0 个未关 Issue，4 个 Fork——不是工具而是内容库，保留价值在于它是少见的社区资料索引。</p>
+      <ul class="fn">
+        <li><span class="k">内容</span><span class="v">同人文章（doujin articles）资料库，按角色/主题索引</span></li>
+        <li><span class="k">形态</span><span class="v">Vue 桌面端应用，界面统一</span></li>
+        <li><span class="k">状态</span><span class="v">2026-09 更新，0 个未关 Issue，维护平稳</span></li>
+      </ul>
+    </div>
+    <div class="card-foot">
+      <a class="go" href="https://github.com/umalib/UmaLibDesktop" target="_blank" rel="noopener">打开 GitHub ↗</a>
+      <span class="repo">umalib/UmaLibDesktop</span>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════ 总表 ══════════════ -->
+<h2 class="cat" id="table"><span class="dot"></span>📊 全部仓库总表（按星标降序）<span class="n">33 行 · 数据取自 GitHub API</span></h2>
+<p class="catdesc">星标、fork、未关 Issue 均为查询时的实时数值，会随社区活动变化；此表仅用于横向对比筛选，具体状态请点进仓库确认。</p>
+
+<div class="tblwrap">
+<table>
+<thead>
+<tr>
+  <th style="width:34px">#</th>
+  <th>仓库</th>
+  <th>方向</th>
+  <th>语言</th>
+  <th class="num" style="width:64px">★ 星标</th>
+  <th class="num" style="width:60px">Fork</th>
+  <th class="num" style="width:74px">未关 Issue</th>
+  <th style="width:104px">最近更新</th>
+</tr>
+</thead>
+<tbody>
+<tr><td class="num">1</td><td><a href="https://github.com/MinamiChiwa/Trainers-Legend-G" target="_blank" rel="noopener">MinamiChiwa/Trainers-Legend-G</a></td><td>汉化插件</td><td>C++</td><td class="num">641</td><td class="num">43</td><td class="num">23</td><td>2026-09-22</td></tr>
+<tr><td class="num">2</td><td><a href="https://github.com/NateScarlet/auto-derby" target="_blank" rel="noopener">NateScarlet/auto-derby</a></td><td>自动育成</td><td>Python</td><td class="num">467</td><td class="num">99</td><td class="num">9</td><td>2026-09-23</td></tr>
+<tr><td class="num">3</td><td><a href="https://github.com/shiokaze/UmamusumeAutoTrainer" target="_blank" rel="noopener">shiokaze/UmamusumeAutoTrainer</a></td><td>自动育成</td><td>Python</td><td class="num">327</td><td class="num">63</td><td class="num">70</td><td>2026-09-06</td></tr>
+<tr><td class="num">4</td><td><a href="https://github.com/GEEKiDoS/umamusume-localify" target="_blank" rel="noopener">GEEKiDoS/umamusume-localify</a></td><td>本地化</td><td>C++</td><td class="num">242</td><td class="num">55</td><td class="num">14</td><td>2026-07-11</td></tr>
+<tr><td class="num">5</td><td><a href="https://github.com/UmamusumeResponseAnalyzer/UmamusumeResponseAnalyzer" target="_blank" rel="noopener">UmamusumeResponseAnalyzer/…ResponseAnalyzer</a></td><td>响应分析</td><td>C#</td><td class="num">197</td><td class="num">29</td><td class="num">9</td><td>2026-09-26</td></tr>
+<tr><td class="num">6</td><td><a href="https://github.com/MarshmallowAndroid/UmamusumeExplorer" target="_blank" rel="noopener">MarshmallowAndroid/UmamusumeExplorer</a></td><td>资源浏览器</td><td>C#</td><td class="num">188</td><td class="num">20</td><td class="num">10</td><td>2026-09-27</td></tr>
+<tr><td class="num">7</td><td><a href="https://github.com/steve1316/uma-android-automation" target="_blank" rel="noopener">steve1316/uma-android-automation</a></td><td>自动育成</td><td>Kotlin</td><td class="num">135</td><td class="num">34</td><td class="num">1</td><td>2026-09-21</td></tr>
+<tr><td class="num">8</td><td><a href="https://github.com/Kimjio/umamusume-localify" target="_blank" rel="noopener">Kimjio/umamusume-localify</a></td><td>本地化+增强</td><td>C++</td><td class="num">108</td><td class="num">17</td><td class="num">18</td><td>2026-09-26</td></tr>
+<tr><td class="num">9</td><td><a href="https://github.com/Magody/Umaplay" target="_blank" rel="noopener">Magody/Umaplay</a></td><td>自动育成</td><td>Jupyter</td><td class="num">106</td><td class="num">37</td><td class="num">24</td><td>2026-09-13</td></tr>
+<tr><td class="num">10</td><td><a href="https://github.com/CNA-Bld/CarrotJuicer" target="_blank" rel="noopener">CNA-Bld/CarrotJuicer</a></td><td>资源提取</td><td>C++</td><td class="num">104</td><td class="num">26</td><td class="num">3</td><td>2026-09-12</td></tr>
+<tr><td class="num">11</td><td><a href="https://github.com/noccu/umamusu-translate" target="_blank" rel="noopener">noccu/umamusu-translate</a></td><td>翻译工具</td><td>Python</td><td class="num">108</td><td class="num">29</td><td class="num">3</td><td>2026-09-13</td></tr>
+<tr><td class="num">12</td><td><a href="https://github.com/chinosk6/umamusume-voice-text-extractor" target="_blank" rel="noopener">chinosk6/…voice-text-extractor</a></td><td>文本提取</td><td>Python</td><td class="num">99</td><td class="num">11</td><td class="num">7</td><td>2026-09-10</td></tr>
+<tr><td class="num">13</td><td><a href="https://github.com/SweepTosher/umamusume-sweepy" target="_blank" rel="noopener">SweepTosher/umamusume-sweepy</a></td><td>无头机器人</td><td>Python</td><td class="num">71</td><td class="num">38</td><td class="num">6</td><td>2026-08-24</td></tr>
+<tr><td class="num">14</td><td><a href="https://github.com/Kimjio/umamusume-localify-android" target="_blank" rel="noopener">Kimjio/umamusume-localify-android</a></td><td>安卓本地化</td><td>C++</td><td class="num">60</td><td class="num">15</td><td class="num">4</td><td>2026-09-26</td></tr>
+<tr><td class="num">15</td><td><a href="https://github.com/Remezzo/Umamusume-Icarus" target="_blank" rel="noopener">Remezzo/Umamusume-Icarus</a></td><td>无头 API</td><td>专有许可</td><td class="num">50</td><td class="num">15</td><td class="num">0</td><td>2026-09-14</td></tr>
+<tr><td class="num">16</td><td><a href="https://github.com/FabulousCupcake/umamusume-db-translate" target="_blank" rel="noopener">FabulousCupcake/…db-translate</a></td><td>数据库汉化</td><td>Shell</td><td class="num">50</td><td class="num">33</td><td class="num">3</td><td>2025-09-25</td></tr>
+<tr><td class="num">17</td><td><a href="https://github.com/Kisegami/umamusume-auto-train" target="_blank" rel="noopener">Kisegami/umamusume-auto-train</a></td><td>自动育成</td><td>Python</td><td class="num">45</td><td class="num">9</td><td class="num">5</td><td>2026-09-13</td></tr>
+<tr><td class="num">18</td><td><a href="https://github.com/samsulpanjul/umamusume-auto-train" target="_blank" rel="noopener">samsulpanjul/umamusume-auto-train</a></td><td>自动育成</td><td>Python</td><td class="num">225</td><td class="num">120</td><td class="num">13</td><td>2026-09-27</td></tr>
+<tr><td class="num">19</td><td><a href="https://github.com/MinamiChiwa/Trainers-Legend-G-TRANS" target="_blank" rel="noopener">MinamiChiwa/Trainers-Legend-G-TRANS</a></td><td>简中语言包</td><td>文本资源</td><td class="num">39</td><td class="num">19</td><td class="num">0</td><td>2025-12-08</td></tr>
+<tr><td class="num">20</td><td><a href="https://github.com/KevinVG207/UmaLauncher" target="_blank" rel="noopener">KevinVG207/UmaLauncher</a></td><td>启动器</td><td>Python</td><td class="num">39</td><td class="num">24</td><td class="num">19</td><td>2026-03-04</td></tr>
+<tr><td class="num">21</td><td><a href="https://github.com/umalib/UmaLibDesktop" target="_blank" rel="noopener">umalib/UmaLibDesktop</a></td><td>资料库前端</td><td>Vue</td><td class="num">36</td><td class="num">4</td><td class="num">0</td><td>2026-09-04</td></tr>
+<tr><td class="num">22</td><td><a href="https://github.com/SimpleSandman/UmaMusumeAPI" target="_blank" rel="noopener">SimpleSandman/UmaMusumeAPI</a></td><td>查询 API</td><td>C#</td><td class="num">36</td><td class="num">5</td><td class="num">3</td><td>2026-06-28</td></tr>
+<tr><td class="num">23</td><td><a href="https://github.com/CNA-Bld/Riru-CarrotJuicer" target="_blank" rel="noopener">CNA-Bld/Riru-CarrotJuicer</a></td><td>安卓提取</td><td>C++</td><td class="num">32</td><td class="num">7</td><td class="num">0</td><td>2026-08-05</td></tr>
+<tr><td class="num">24</td><td><a href="https://github.com/chinosk6/umamusume-model-replace" target="_blank" rel="noopener">chinosk6/umamusume-model-replace</a></td><td>模型替换</td><td>Python</td><td class="num">30</td><td class="num">3</td><td class="num">2</td><td>2026-07-07</td></tr>
+<tr><td class="num">25</td><td><a href="https://github.com/steve1316/uma-android-training-helper" target="_blank" rel="noopener">steve1316/uma-android-training-helper</a></td><td>训练辅助</td><td>Kotlin</td><td class="num">25</td><td class="num">5</td><td class="num">0</td><td>2026-09-11</td></tr>
+<tr><td class="num">26</td><td><a href="https://github.com/akarindt/UmatoMusume" target="_blank" rel="noopener">akarindt/UmatoMusume</a></td><td>OCR 选项助手</td><td>C#</td><td class="num">21</td><td class="num">2</td><td class="num">5</td><td>2026-09-24</td></tr>
+<tr><td class="num">27</td><td><a href="https://github.com/Euophrys/umamusume-tierlist" target="_blank" rel="noopener">Euophrys/umamusume-tierlist</a></td><td>强度榜</td><td>JavaScript</td><td class="num">16</td><td class="num">25</td><td class="num">4</td><td>2026-09-08</td></tr>
+<tr><td class="num">28</td><td><a href="https://github.com/SimpleSandman/UmaMusumeMetaMasterMDB" target="_blank" rel="noopener">SimpleSandman/UmaMusumeMetaMasterMDB</a></td><td>数据公开镜像</td><td>数据文件</td><td class="num">15</td><td class="num">4</td><td class="num">0</td><td>2026-06-15</td></tr>
+<tr><td class="num">29</td><td><a href="https://github.com/Kamijouko/UmaMusume_Calculator" target="_blank" rel="noopener">Kamijouko/UmaMusume_Calculator</a></td><td>相性计算</td><td>C#</td><td class="num">9</td><td class="num">2</td><td class="num">0</td><td>2025-11-10</td></tr>
+<tr><td class="num">30</td><td><a href="https://github.com/tumugu/UmaMusume_Mod_Loader" target="_blank" rel="noopener">tumugu/UmaMusume_Mod_Loader</a></td><td>Mod 加载</td><td>Python</td><td class="num">8</td><td class="num">3</td><td class="num">0</td><td>2026-08-04</td></tr>
+<tr><td class="num">31</td><td><a href="https://github.com/starik222/UmaMusumeDBBrowser" target="_blank" rel="noopener">starik222/UmaMusumeDBBrowser</a></td><td>数据库浏览</td><td>C#</td><td class="num">7</td><td class="num">2</td><td class="num">0</td><td>2025-07-06</td></tr>
+<tr><td class="num">32</td><td><a href="https://github.com/Remezzo/Umamusume-Overseer" target="_blank" rel="noopener">Remezzo/Umamusume-Overseer</a></td><td>陪伴浮层</td><td>专有许可</td><td class="num">5</td><td class="num">0</td><td class="num">0</td><td>2026-09-17</td></tr>
+<tr><td class="num">33</td><td><a href="https://github.com/Remezzo/Umamusume-Sundial" target="_blank" rel="noopener">Remezzo/Umamusume-Sundial</a></td><td>多账号面板</td><td>专有许可</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td>2026-09-21</td></tr>
+<tr><td class="num">—</td><td><a href="https://github.com/SheffPlaysGames/UmaSpecPriority" target="_blank" rel="noopener">SheffPlaysGames/UmaSpecPriority</a></td><td>概率模拟器</td><td>HTML</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td>2026-09-07</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>🔍 怎么挑？</h2>
+<div class="card" style="padding:16px 18px">
+<table>
+<thead><tr><th style="width:180px">你的需求</th><th>建议看这几个</th></tr></thead>
+<tbody>
+<tr><td>想省事全自动挂机</td><td><a href="https://github.com/samsulpanjul/umamusume-auto-train" target="_blank" rel="noopener">samsulpanjul</a>（配置体验最好）· <a href="https://github.com/shiokaze/UmamusumeAutoTrainer" target="_blank" rel="noopener">shiokaze</a>（国服专用）· <a href="https://github.com/steve1316/uma-android-automation" target="_blank" rel="noopener">steve1316</a>（纯手机）</td></tr>
+<tr><td>只想要建议、不想被代打</td><td><a href="https://github.com/steve1316/uma-android-training-helper" target="_blank" rel="noopener">uma-android-training-helper</a> · <a href="https://github.com/akarindt/UmatoMusume" target="_blank" rel="noopener">UmatoMusume</a>（OCR）· <a href="https://github.com/Remezzo/Umamusume-Overseer" target="_blank" rel="noopener">Overseer</a>（浮层+翻译）</td></tr>
+<tr><td>想改成中文玩</td><td><a href="https://github.com/MinamiChiwa/Trainers-Legend-G" target="_blank" rel="noopener">Trainers-Legend-G</a>（最流行）· <a href="https://github.com/Kimjio/umamusume-localify" target="_blank" rel="noopener">Kimjio 版</a>（含增强）· <a href="https://github.com/FabulousCupcake/umamusume-db-translate" target="_blank" rel="noopener">db-translate</a>（改数据库）</td></tr>
+<tr><td>想研究数据 / 写工具</td><td><a href="https://github.com/SimpleSandman/UmaMusumeMetaMasterMDB" target="_blank" rel="noopener">MetaMasterMDB</a>（数据源）· <a href="https://github.com/SimpleSandman/UmaMusumeAPI" target="_blank" rel="noopener">UmaMusumeAPI</a>（接口）· <a href="https://github.com/MarshmallowAndroid/UmamusumeExplorer" target="_blank" rel="noopener">UmamusumeExplorer</a>（看资源）</td></tr>
+<tr><td>想看资源/音频</td><td><a href="https://github.com/MarshmallowAndroid/UmamusumeExplorer" target="_blank" rel="noopener">UmamusumeExplorer</a>（含音乐模拟器）· <a href="https://github.com/CNA-Bld/CarrotJuicer" target="_blank" rel="noopener">CarrotJuicer</a>（提取）</td></tr>
+</tbody>
+</table>
+</div>
+
+<footer>
+  <p><b>赛马娘外部开源项目图鉴</b> · 收录 33 个社区仓库，全部功能说明依据各仓库 README 核实后用中文撰写，非机翻直译。</p>
+  <p style="margin-top:8px">数据核对于 2026-09，星标 / fork / Issue 数为查询时快照，会持续变化。<b>本页不隶属于任何项目组</b>，仅作技术资料索引。</p>
+  <p style="margin-top:8px">⚠ <b>合规提醒：</b>赛马娘为 Cygames 商业作品，自动化、内存读取、资源替换类工具均违反其用户协议，存在账号封禁风险。所有项目风险自负，本页不提供任何规避检测的方法。</p>
+</footer>
+
+</div>
+</body>
+</html>
